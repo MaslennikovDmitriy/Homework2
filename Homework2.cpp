@@ -1,7 +1,11 @@
 ﻿#include <iostream>
+#include <clocale>
+
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
-}
+    setlocale(LC_ALL, "Russian");
 
+    return EXIT_SUCCESS;
+}
