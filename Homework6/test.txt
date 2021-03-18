@@ -1,0 +1,8 @@
+#include <iostream>
+// the first comment
+/*the second comment*/
+int main() 
+{
+    std::cout << "Hello, world!" << std::endl;
+    return 0;// another one comment
+}
