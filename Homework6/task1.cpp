@@ -1,71 +1,64 @@
 #include <iostream>
-#include <stdio.h>
+#include <fstream>
+#include <cstdio>
 #include <string>
+#include <clocale>
 
-FILE* in, * out;
-
-void in_comment(void)
+bool check(char c, char d)
 {
-    int c, d;
-    c = fgetc(in);
-    d = fgetc(in);
-    while (c != '*' || d != '/')
+    static int i = 0;
+
+    if ((d == '"') && (c != '/'))
     {
-        c = d;
-        d = fgetc(in);
+        i ? --i : ++i;
     }
-}
-
-void in_short_comment(void)
-{
-    int c;
-    c = fgetc(in);
-    while (c != '\n')
-        c = fgetc(in);
-}
-
-void find_comment(int c)
-{
-    int d;
-    if (c == '/')
-        if ((d = fgetc(in)) == '*')
-            in_comment();
-        else if (d == '/')
-            in_short_comment();
+    else
+    {
+        if ((d == '/') && (c == '/') && (!i))
+        {
+            return true;
+        }
         else
         {
-            fputc(c, out);
-            fputc(d, out);
+            if ((d == '*') && (c == '/') && (!i))
+            {
+                return true;
+            }
+            else
+            {
+                if ((d == '/') && (c == '*') && (!i))
+                {
+                    return true;
+                }
+                else return false;
+            }
         }
-    else
-        fputc(c, out);
+    }
 }
-
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    int c;
-    char out_f_name[30];
-    char in_f_name[30];
-
-    printf("Введите имя файла, в котором надо удалить комментарии: ");
-    gets_s(out_f_name);
-    fopen_s(&in, out_f_name, "rb");
-    if ((in == NULL))
+    std::fstream File("test.txt", std::ios::in | std::ios::out);
+    if (!File)
     {
-        perror(out_f_name);
-        return 1;
+        std::cerr << "Невозможно открыть файл!" << std::endl;
+        return EXIT_FAILURE;
     }
-    printf("Введите имя файла, в который запишется результат: ");
-    gets_s(in_f_name);
-    fopen_s(&out, in_f_name, "wb");
-    while ((c = fgetc(in)) != EOF)
+    char c = ' ';
+    char d;
+    while (File)
     {
-        find_comment(c);
+        File.get(d);
+        if (check(c, d))
+        {
+            File.seekg(-2, std::ios::cur);
+            File.put(' ');
+            File.put(' ');
+        }
+        c = d;
     }
-    fclose(in);
-    fclose(out);
+    std::cout << "Успех, файл очищен от комментариев!" << std::endl;
     system("pause");
     return EXIT_SUCCESS;
 }
