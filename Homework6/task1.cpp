@@ -42,7 +42,7 @@ int main()
     std::fstream File("test.txt", std::ios::in | std::ios::out);
     if (!File)
     {
-        std::cerr << "Íåâîçìîæíî îòêðûòü ôàéë!" << std::endl;
+        std::cerr << "ÐÐµÐ²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»!" << std::endl;
         return EXIT_FAILURE;
     }
     char c = ' ';
@@ -58,7 +58,7 @@ int main()
         }
         c = d;
     }
-    std::cout << "Óñïåõ, ôàéë î÷èùåí îò êîììåíòàðèåâ!" << std::endl;
+    std::cout << "Ð£ÑÐ¿ÐµÑ…, Ñ„Ð°Ð¹Ð» Ð¾Ñ‡Ð¸Ñ‰ÐµÐ½ Ð¾Ñ‚ ÐºÐ¾Ð¼Ð¼ÐµÐ½Ñ‚Ð°Ñ€Ð¸ÐµÐ²!" << std::endl;
     system("pause");
     return EXIT_SUCCESS;
 }
