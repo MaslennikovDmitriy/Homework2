@@ -1,19 +1,20 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <cstdlib>
-#include <conio.h>
+#include <random>
 
-const int str_size = 10;
+const int str_size = 8;
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
+    std::random_device rd;
+    std::mt19937 mersenne(rd());
     std::ofstream F1("task2.txt", std::ios_base::trunc);
-    for (int i = 0; i < 20; i++) {
-        for (int j = 0; j < str_size; j++) {
-            F1 << rand() % 10;
-        }
-        F1 << "\n";
+    for (int i = 0; i < 20; i++)
+    {
+        std::uniform_int_distribution<> un_distrib(10000000, 99999999);
+        F1 << un_distrib(mersenne) << std::endl;
     }
     F1.close();
 
