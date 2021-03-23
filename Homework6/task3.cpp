@@ -15,9 +15,9 @@ void Directory_Check(const std::experimental::filesystem::path& _path)
 			auto filename = entry.path().filename().string();
 			auto time = std::experimental::filesystem::last_write_time(_path);
 			std::time_t cftime = decltype(time)::clock::to_time_t(time);
-			std::cout << "Èìÿ ôàéëà: " << filename << std::endl;
-			std::cout << "Ðàñøèðåíèå: " << _path.extension().string() << std::endl;
-			std::cout << "Ïîñëåäíåå âðåìÿ èçìåíåíèÿ ôàéëà: " << std::asctime(std::localtime(&cftime)) << std::endl;
+			std::cout << "Ð˜Ð¼Ñ Ñ„Ð°Ð¹Ð»Ð°: " << filename << std::endl;
+			std::cout << "Ð Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð¸Ðµ: " << _path.extension().string() << std::endl;
+			std::cout << "ÐŸÐ¾ÑÐ»ÐµÐ´Ð½ÐµÐµ Ð²Ñ€ÐµÐ¼Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ñ„Ð°Ð¹Ð»Ð°: " << std::asctime(std::localtime(&cftime)) << std::endl;
 		}
 	}
 }
@@ -26,12 +26,12 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	std::string path_str;
-	std::cout << "Ââåäèòå ïóòü ôàéëà: ";
+	std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿ÑƒÑ‚ÑŒ Ñ„Ð°Ð¹Ð»Ð°: ";
 	std::cin >> path_str;
 	std::experimental::filesystem::path File = path_str;
 	if (!std::experimental::filesystem::exists(File))
 	{
-		std::cerr << "Ïóòü " << path_str << " íå ñóùåñòâóåò" << std::endl;
+		std::cerr << "ÐŸÑƒÑ‚ÑŒ " << path_str << " Ð½Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚" << std::endl;
 		return EXIT_FAILURE;
 	}
 	Directory_Check(File);
